@@ -1,3 +1,13 @@
+"""
+This module contains localized messages for the bot in different languages.
+
+So far only 5 languages ​​are available:
+    - English
+    - Russian
+    - Spanish
+    - Chinese
+    - Arabic
+"""
 MESSAGES: dict[str, dict[str, str]] = {
     'en': {
         'START_MSG': 'Hi there! I know how to remove background from images. Post a photo here in png, jpg or bmp format and see for yourself :D',
