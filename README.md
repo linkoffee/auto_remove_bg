@@ -2,8 +2,8 @@
 `Discord bot that can quickly remove background from photos`
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287979797348516/bot_icon.png?ex=668ec625&is=668d74a5&hm=6850b468e574a5fe7628afdc8c2de27d21f1a4c37d1121b0cf327f245975e82b&" alt="Bot Icon" width="400"/>
-  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287696346288370/bot_pic.png?ex=668ec5e1&is=668d7461&hm=0b27a51ef195d515272733d14aefb8ba9a3f4ad844247879da4f907fd38e99fa&" alt="Bot Picture" width="600"/>
+  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287979797348516/bot_icon.png?ex=668ec625&is=668d74a5&hm=6850b468e574a5fe7628afdc8c2de27d21f1a4c37d1121b0cf327f245975e82b&" alt="Bot Icon" width="270"/>
+  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287696346288370/bot_pic.png?ex=668ec5e1&is=668d7461&hm=0b27a51ef195d515272733d14aefb8ba9a3f4ad844247879da4f907fd38e99fa&" alt="Bot Picture" width="400"/>
 </p>
 
 > [!NOTE]
