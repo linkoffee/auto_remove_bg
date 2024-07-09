@@ -59,7 +59,12 @@ def remove_background(file_path):
             )
             return None
 
-        return response.json()
+        result = response.json()
+        for item in result:
+            if item['slug'] == 'no-bg':
+                if not item['path'].startswith('http'):
+                    item['path'] = 'https://' + item['path']
+        return result
     except Exception as e:
         logger.error(f'Exception during background removal: {e}')
         return None
@@ -88,15 +93,13 @@ async def handle_remove_bg(ctx, attachment):
     file_name = attachment.filename.lower()
 
     if not is_supported_file(file_name):
-        await ctx.send(
-            "Unsupported file format. Please upload a PNG, JPG, or BMP file."
-        )
+        await ctx.send(MESSAGES[LANGUAGE]['ERR_WRONG_LANG_MSG'])
         logger.warning(f'Unsupported file format: {file_name}')
         return
 
     file_path = await download_file(attachment)
     if not file_path:
-        await ctx.send("Failed to download the image. Please try again later.")
+        await ctx.send(MESSAGES[LANGUAGE]['ERR_DOWNLOAD_FAILED_MSG'])
         return
 
     result = remove_background(file_path)
@@ -104,7 +107,7 @@ async def handle_remove_bg(ctx, attachment):
     await ctx.send(MESSAGES[LANGUAGE]['PRE_REMOVE_MSG'])
 
     if not result:
-        await ctx.send("Failed to process the image. Please try again later.")
+        await ctx.send(MESSAGES[LANGUAGE]['ERR_PROCESS_FAILED_MSG'])
         return
 
     await ctx.send(MESSAGES[LANGUAGE]['WAITING_MSG'])
@@ -117,20 +120,19 @@ async def handle_remove_bg(ctx, attachment):
         await send_image(ctx, no_bg_url, file_name)
         logger.info(f'Background removed for file `{file_name}`')
     else:
-        await ctx.send(
-            "Failed to retrieve the processed image. Please try again later."
-        )
+        await ctx.send(MESSAGES[LANGUAGE]['ERR_RETRIEVE_FAILED_MSG'])
         logger.error(
             f'Failed to retrieve processed image for file `{file_name}`'
         )
     os.remove(file_path)
     logger.debug(f'Temporary file {file_path} has been deleted')
-    await ctx.send(MESSAGES[LANGUAGE]['AGAIN?_MSG'])
 
 
 async def send_image(ctx, url, original_file_name):
     """Download the processed image and send it to the user."""
     try:
+        if not url.startswith('http'):
+            url = 'https://' + url
         response = requests.get(url)
         if response.status_code == HTTPStatus.OK:
             temp_file = tempfile.NamedTemporaryFile(
@@ -140,18 +142,21 @@ async def send_image(ctx, url, original_file_name):
             await ctx.send(
                 file=discord.File(
                     temp_file.name,
-                    filename=f"auto_remove_bg_{original_file_name}"
+                    filename=f'auto_remove_bg_{original_file_name}'
                 )
             )
             os.remove(temp_file.name)
             logger.debug(
-                f'Sent processed image and deleted temporary file {temp_file.name}')
+                'Sent processed image and deleted '
+                f'temporary file {temp_file.name}'
+            )
+            await ctx.send(MESSAGES[LANGUAGE]['AGAIN?_MSG'])
         else:
-            await ctx.send("Failed to download the processed image. Please try again later.")
-            logger.error(f"Failed to download the processed image from {url}")
+            await ctx.send(MESSAGES[LANGUAGE]['ERR_DOWNLOAD_FAILED_MSG'])
+            logger.error(f'Failed to download the processed image from {url}')
     except Exception as e:
-        await ctx.send("An error occurred while downloading the processed image. Please try again later.")
-        logger.error(f"Exception during downloading the processed image: {e}")
+        await ctx.send(MESSAGES[LANGUAGE]['ERR_DOWNLOAD_FAILED_MSG'])
+        logger.error(f'Exception during downloading the processed image: {e}')
 
 
 @bot.event
@@ -202,10 +207,14 @@ async def set_language(ctx, lang):
     global LANGUAGE
     if lang in MESSAGES:
         LANGUAGE = lang
-        await ctx.send(f'Language set to {lang}.')
+        await ctx.send(
+            MESSAGES[LANGUAGE]['INFO_LANGUAGE_CHANGED'].format(lang=lang)
+        )
         logger.info(f'Language set to {lang}')
     else:
-        await ctx.send(f'Language {lang} is not supported.')
+        await ctx.send(
+            MESSAGES[LANGUAGE]['INFO_LANGUAGE_UNSUPPORTED'].format(lang=lang)
+        )
         logger.warning(f'Tried to set unsupported language: {lang}')
 
 
@@ -218,7 +227,8 @@ if BOT_TOKEN:
     try:
         bot.run(BOT_TOKEN)
     except Exception as e:
-        logger.error(f"Error running bot: {e}")
+        logger.error(f'Error running bot: {e}')
 else:
     logger.error(
-        "BOT_TOKEN is not set. Please set the BOT_TOKEN environment variable.")
+        'BOT_TOKEN is not set. Please set the BOT_TOKEN environment variable.'
+    )
