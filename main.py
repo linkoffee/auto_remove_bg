@@ -14,19 +14,27 @@ from localization import MESSAGES
 
 load_dotenv()
 
-# Tokens:
+# Tokens
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 BALA_TOKEN = os.getenv('BALA_TOKEN')
 
-# Endpoints:
+# Endpoints
 ENDPOINT = 'https://api.ba-la.ru/api/remove'
 
-# Base language:
+# Base language
 LANGUAGE = 'en'  # 'en', 'ru', 'es', 'zh', 'ar'
 
 # Logging configuration
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
+
+# Checking for token availability
+if not BOT_TOKEN:
+    logger.critical('BOT_TOKEN is not set')
+    raise ValueError('BOT_TOKEN is not set')
+if not BALA_TOKEN:
+    logger.critical('BALA_TOKEN is not set')
+    raise ValueError('BALA_TOKEN is not set')
 
 
 intents = discord.Intents.default()
@@ -50,9 +58,8 @@ def remove_background(file_path):
                 files={'mediaFile': file},
                 headers={'api-key': BALA_TOKEN},
             )
-        logger.debug(
-            f'API response status code: {response.status_code}'
-        )
+        logger.debug(f'API response status code: {response.status_code}')
+
         if response.status_code != HTTPStatus.OK:
             logger.error(
                 f'Connection failed. Status code: {response.status_code}'
@@ -60,11 +67,27 @@ def remove_background(file_path):
             return None
 
         result = response.json()
-        for item in result:
-            if item['slug'] == 'no-bg':
-                if not item['path'].startswith('http'):
-                    item['path'] = 'https://' + item['path']
-        return result
+        logger.debug(f'API response: {result}')
+
+        if 'error' in result:
+            logger.error(f"API returned an error: {result['error']}")
+            return None
+
+        if 'message' in result:
+            logger.error(f"API returned a message: {result['message']}")
+            return None
+
+        if isinstance(result, list):
+            for item in result:
+                if item['slug'] == 'no-bg':
+                    if not item['path'].startswith('https://ba-la.ru/'):
+                        item['path'] = 'https://ba-la.ru/' + \
+                            item['path'].lstrip('/')
+            return result
+
+        logger.error('Unexpected response format from API')
+        return None
+
     except Exception as e:
         logger.error(f'Exception during background removal: {e}')
         return None
@@ -131,9 +154,12 @@ async def handle_remove_bg(ctx, attachment):
 async def send_image(ctx, url, original_file_name):
     """Download the processed image and send it to the user."""
     try:
-        if not url.startswith('http'):
-            url = 'https://' + url
         response = requests.get(url)
+        logger.debug(
+            f'Downloading image from {url}, '
+            f'status code: {response.status_code}'
+        )
+
         if response.status_code == HTTPStatus.OK:
             temp_file = tempfile.NamedTemporaryFile(
                 delete=False, suffix='.png')
@@ -153,7 +179,10 @@ async def send_image(ctx, url, original_file_name):
             await ctx.send(MESSAGES[LANGUAGE]['AGAIN?_MSG'])
         else:
             await ctx.send(MESSAGES[LANGUAGE]['ERR_DOWNLOAD_FAILED_MSG'])
-            logger.error(f'Failed to download the processed image from {url}')
+            logger.error(
+                f'Failed to download the processed image from {url}, '
+                f'status code: {response.status_code}'
+            )
     except Exception as e:
         await ctx.send(MESSAGES[LANGUAGE]['ERR_DOWNLOAD_FAILED_MSG'])
         logger.error(f'Exception during downloading the processed image: {e}')
