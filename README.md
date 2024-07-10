@@ -74,6 +74,58 @@
 
 ---
 
+### How the bot works
+
+<img src="https://media.discordapp.net/attachments/1259774252396056651/1260527470361186324/1228.png?ex=668fa530&is=668e53b0&hm=4904c778f4636a5da0af869463c4457953ac2116eed33a938d9d252208193a9f&=&format=webp&quality=lossless" width="700"/>
+
+> [!IMPORTANT]
+> Unfortunately, the bot can only process up to 2 images from one account on the [ba-la.ru](https://ba-la.ru/).
+
+---
+
+### How to install
+1. Clone the remote repository and go to it:
+```
+git clone https://github.com/linkoffee/auto_remove_bg.git
+```
+```
+cd auto_remove_bg
+```
+2. Create and activate a virtual environment:
+```
+python3 -m venv env
+```
+```
+source env/bin/activate
+```
+3. Install all required dependencies:
+```
+python3 -m pip install --upgrade pip
+```
+```
+pip install -r requirements.txt
+```
+4. Create your application on the [website](https://discord.com/developers/applications), register the bot.
+5. Configure the bot in point `OAuth2`, give it the following privileges: `bot`, `Send Messages`, `Attach Files`.
+6. In `OAuth2`, immediately get the url, paste it into the address bar and add it to your discord server.
+7. At the `Bot` point, be sure to generate and receive your personal token.
+8. Go to the [site](https://ba-la.ru/) to remove the background, register, go to the `API` tab, get your personal token.
+9. In the root dir of the project create a file `.env`, add your tokens there, in this format, without quotes and spaces:
+```.env
+BOT_TOKEN=IHDWd0-whd0widjhWDWA-D0JA-0jdwa.IFHeiwd2.2193u  # Example of bot token.
+BALA_TOKEN=iwdhIDHAUWD923od1j9JDJW  # Example of bala token.
+```
+10. Run the tests, they are in the `tests/` folder:
+```
+pytest
+```
+12. Run the bot:
+```
+python main.py
+```
+
+---
+
 ### Stack
 - python 3.9
 - discord.py 2.4.0
