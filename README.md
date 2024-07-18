@@ -2,8 +2,8 @@
 `Discord bot that can quickly remove background from photos`
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287979797348516/bot_icon.png?ex=668ec625&is=668d74a5&hm=6850b468e574a5fe7628afdc8c2de27d21f1a4c37d1121b0cf327f245975e82b&" alt="Bot Icon" width="270"/>
-  <img src="https://cdn.discordapp.com/attachments/1259774252396056651/1260287696346288370/bot_pic.png?ex=668ec5e1&is=668d7461&hm=0b27a51ef195d515272733d14aefb8ba9a3f4ad844247879da4f907fd38e99fa&" alt="Bot Picture" width="400"/>
+  <img src="https://habrastorage.org/webt/tx/em/e0/txeme0-wb9_zphwweswgrpaojmq.png" alt="Bot Icon" width="270"/>
+  <img src="https://habrastorage.org/webt/fg/_0/me/fg_0mexote7jzeukfp3mszsqmws.png" alt="Bot Picture" width="400"/>
 </p>
 
 > [!NOTE]
@@ -56,27 +56,27 @@
 
 `Request`
 
-<img src="https://media.discordapp.net/attachments/1259774252396056651/1260294992543350814/1226.png?ex=668eccad&is=668d7b2d&hm=67282aa97ab7365be954d1c0ab8eefce4d3630cffdbc40e5cd72e06d18d15b7d&=&format=webp&quality=lossless" height="100" width="700"/>
+<img src="https://habrastorage.org/webt/1i/1_/1c/1i1_1crl0qwxwvhz6zebuc5jn1o.png" height="100" width="700"/>
 
 `Response`
 
-<img src="https://media.discordapp.net/attachments/1259774252396056651/1260294992925294642/1227.png?ex=668eccad&is=668d7b2d&hm=ecbc058e77852d56921ba8b914f09dadfb6d5f78aff2fd2f4262c19751f3f553&=&format=webp&quality=lossless" height="100" width="700"/>
+<img src="https://habrastorage.org/webt/rq/iw/rt/rqiwrttix-4rzqixffpc6ufvo9g.png" height="100" width="700"/>
 
 #### It works exactly the same with other languages...
 
 `Request`
 
-<img src="https://media.discordapp.net/attachments/1259774252396056651/1260294992027713767/1224.png?ex=668eccad&is=668d7b2d&hm=df147ebc111bf5b6253355e73df0c34da72d17ae735031882c656d98c8a9b7f9&=&format=webp&quality=lossless" height="100" width="700"/>
+<img src="https://habrastorage.org/webt/bg/yi/iv/bgyiivkvyi-qzwcut19botcathy.png" height="100" width="700"/>
 
 `Response`
 
-<img src="https://media.discordapp.net/attachments/1259774252396056651/1260294992270852116/1225.png?ex=668eccad&is=668d7b2d&hm=a5f5a1ec99405d718df2021dcf522882b622ae5de411c9e3f9c4d368a4e7742b&=&format=webp&quality=lossless" height="100" width="700"/>
+<img src="https://habrastorage.org/webt/sa/jn/ij/sajnijucs8uf9xtrd7qdvfoduhg.png" height="100" width="700"/>
 
 ---
 
 ### How the bot works
 
-<img src="https://media.discordapp.net/attachments/1259774252396056651/1260527470361186324/1228.png?ex=668fa530&is=668e53b0&hm=4904c778f4636a5da0af869463c4457953ac2116eed33a938d9d252208193a9f&=&format=webp&quality=lossless" width="700"/>
+<img src="https://habrastorage.org/webt/n-/vl/7u/n-vl7u2ugsrz-atb5bwlxv-7agi.png" width="700"/>
 
 > [!IMPORTANT]
 > Unfortunately, the bot can only process up to 2 images from one account on the [ba-la.ru](https://ba-la.ru/).
